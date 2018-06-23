@@ -5,12 +5,16 @@ import pyperclip
 import csv
 from PIL import Image
 
+# shortcut keys to copy
+
 
 def ctrlc():
     pagi.keyDown('ctrl')
     pagi.keyDown('c')
     pagi.keyUp('c')
     pagi.keyUp('ctrl')
+
+# hot-keys to copy
 
 
 def copy():
@@ -23,12 +27,20 @@ try:
     #  FAILSAFE = False
     # User
     time.sleep(5)
-    pagi.click(926, 553)
-    pagi.typewrite('1605076')
+    # pagi.click(926, 553)
+
+    '''coordinates = pagi.locateOnScreen('../Images/User.PNG')
+    centre = pagi.center(coordinates)
+    pagi.click([centre[0]+200, centre[1]])'''
+
+    pagi.typewrite('1605XXX')
+    coordinates = pagi.position()
     # Position
+    print(coordinates)
     time.sleep(2)
-    pagi.click(940, 582)
-    pagi.typewrite('Sr1njoy$')
+    pagi.click(coordinates[0], coordinates[1]+20)
+    # pagi.click(940, 582)
+    pagi.typewrite('Your Password')
     # Log on button
     time.sleep(2)
     pagi.click(1121, 643)
@@ -40,11 +52,17 @@ try:
     pagi.click(93, 726)  # (1417, 860)
     # '''
     # Copying data by dragging
-    pyperclip.copy('')
+    #pyperclip.copy('')
     time.sleep(10)
 
     copy()
+    # saving a screen-shot of attendance details
+    image = pagi.screenshot()
+    image.save("../Images/screenshot1.png")
     data = pyperclip.paste()
+    if data is None:
+        print("Not Working!!")
+        raise KeyboardInterrupt
     # since hotkey() doesn't work properly use pywinauto
     # image.save('a');
     # Image.open('a')
